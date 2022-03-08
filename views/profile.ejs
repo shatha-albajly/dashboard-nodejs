@@ -1,0 +1,136 @@
+<%-include("_header.ejs")  %> 
+
+
+    <section class="profile" id="profile" style="margin-top: 4rem">
+      <div class="container">
+        <h1 class="text-primary text-center pt-4">Shatha Adel Al-Bajly</h1>
+
+        <div class="underline mb-3"></div>
+        <div class="row d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn btn-primary my-3 text-center"
+            style="width: 200px"
+          >
+            <a
+              download
+              id="cv"
+              class="text-white text-decoration-none"
+              href="../shatha adel ali .pdf"
+              >Download CV</a
+            >
+          </button>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 mx-auto">
+            <div class="row shadow p-4 mb-3 mx-1 text-start">
+              <h5 class="text-primary text-center pt-4">About Me</h5>
+              <p class="h6">Name:<%= profile.name %> </p>
+              <p class="h6">last name:<%= profile.surname %> </p>
+              <p class="h6">Email:<%= profile.email %> </p>
+              <% if (profile.education) { %>
+                <p class="h6">Education:<%= profile.education %> </p>
+               
+              <% } %>
+             
+              <% if (profile.country) { %>
+                <p class="h6">Education:<%= profile.country %> </p>
+               
+              <% } %>
+              <% if (profile.address) { %>
+                <p class="h6">Education:<%= profile.address %> </p>
+               
+              <% } %>
+             
+
+
+            
+            </div>
+           
+            <div class="row shadow p-4 mb-3 mx-1 text-start">
+              <h5 class="text-primary text-center pt-4">Skills</h5>
+        <p class="h5">My skills: </p>
+              <% skills.forEach(Skillselement => { %>
+                <% if (Skillselement.is_active!=0) { %>
+                 
+                    <div >
+                        <p class="text-black p-0 m-0">
+                            <p style="font-size: 1rem;" class=" "> <%= Skillselement.skills %> </p>                   
+                      </div>
+                <% } %>
+               
+              <% }) %>
+
+              
+             
+            </div>
+            <div class="row shadow p-4 mb-3 mx-1 text-start">
+              <h5 class="text-primary text-center pt-4">Qualification</h5>
+
+
+              <% qualification.forEach(qualificationElement => { %>
+                <% if (qualificationElement.active!=0) { %>
+                    <div class="col-10" >
+                        <p class="h5 text-primary">
+                              <%= qualificationElement.title %> 
+                        </p>
+                        <p class="text-black country p-0 m-0"> 
+                          <span class="fw-bold">Provider :                                      
+                          </span>
+                            <%= qualificationElement.provider %> </p>
+
+                            <p class="text-black">  
+                              <%= qualificationElement.details %>
+                              
+                                 
+                                </p>
+                        </div>
+                     
+                 
+                <% } %>
+               
+              <% }) %>
+            </div>
+
+            <div class="row shadow p-4 mb-3 mx-1 text-start">
+              <h5 class="text-primary text-center pt-4">
+                Experiences              </h5>
+
+              <% experience.forEach(experienceElement => { %>
+                <% if (experienceElement.active!=0) { %>
+                    <div class="col-10" >
+                        <p class="h5 text-primary">
+                              <%= experienceElement.title %> 
+                        </p>
+                        <p class="text-black country p-0 m-0"> 
+                          <span class="fw-bold">Provider :                                      
+                          </span>
+                            <%= experienceElement.provider %> </p>
+
+                            <p class="text-black">  
+                              <%= experienceElement.details %>
+                              
+                                 
+                                </p>
+                        </div>
+                     
+                 
+                <% } %>
+               
+              <% }) %>
+             
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%-include("_footer.ejs")  %> 
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<%-include("_header.ejs")  %> 
+<%-include("sidebar.ejs")  %> 
+
+        <div class="col-12 col-md-8 bg-light rounded mx-auto shadow ">
+        
+          <div class="row">
+            <div class="col-md-3 border-right mx-auto ">
+            
+            </div>
+            <div class=" border-right">
+                <div class="p-3 pb-5">
+                    <div class="d-flex justify-content-between align-items-center my-3 ">
+                        <h4 class="text-right text-primary">experiences </h4>
+                        <a role="button"> <i  class="bi bi-plus h2 text-primary "data-bs-toggle="modal" data-bs-target="#addQuallification" style="cursor: pointer;"></i></a>
+
+                    </div>
+                    <div class="experience">
+
+                      <% data.forEach(element => { 
+                        %>
+                        
+                        <% if (element.is_active) { %>
+                          <div class="row my-3 experience-card">
+
+                            <div class=" shadow-sm mx-auto py-3 bg-white col-10 ">
+                                <div class="d-flex justify-content-between align-items-center px-md-2">
+    
+                                
+                                  <div class="col-10" >
+                                    <p class="h5 text-primary">
+                                          <%= element.title %> 
+                                    </p>
+                                    <p class="text-black country p-0 m-0"> 
+                                      <span class="fw-bold">Provider :                                      
+                                      </span>
+                                        <%= element.provider %> </p>
+    
+                                        <p class="text-black">  
+                                          <%= element.details %>
+                                          
+                                             
+                                            </p>
+                                    </div>
+                                  
+                                       <a role="button" data-bs-toggle="modal"  class="delteIcon" data-bs-target="#deleteexperience" 
+                                       data-id= <%= element.id %>
+                                       > <i class="bi bi-trash text-primary h5 mx-1  trash " style="cursor: pointer;"  
+                                        ></i></a>
+                                       
+                                        <a role="button" class="updateIcon" 
+                                        data-id= <%= element.id %>
+                                        data-title= <%= element.title %>
+                                        data-provider= <%= element.provider %>
+                                        data-details= <%= element.details %>
+                                        
+                                        onclick= <%= "add(element)" %>
+                                        
+
+                                        
+                                        > <i  class="bi bi-pencil-square text-primary h5"data-bs-toggle="modal" data-bs-target="#updateQuallification" style="cursor: pointer;"></i></a>
+                                       
+                                      
+                                    </div>
+                            </div>
+                        </div>
+ 
+                          <% } %>
+                        
+                        
+                      
+                       
+                      <% }) %>
+                    
+                  
+                </div>
+              </div>
+            </div>
+           
+        </div>
+    
+          </div>
+        </div>
+      </div>
+
+    
+<!-- Modal Add Experience -->
+ <div class="modal fade" id="addQuallification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+      <div class="modal-content p-3">
+          <div class="modal-header">
+              <h4 class="modal-title fw-bold text-center" id="exampleModalLabel">Add Experience</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form  action="/experience/add" class="row g-3 needs-validation" method="POST" id="experience-form"   novalidate>
+                 
+              <div class="col-12">
+                  <label for="experience" class="form-label" > What is your role?</label>
+                  <input type="text" class="form-control rounded-pill"  placeholder="Ex. Full-stack developer" name="title">
+              </div>
+              <div class="col-12">
+                  <label for="provider" class="form-label">What is the company?</label>
+                  <input type="text" class="form-control rounded-pill"  placeholder="Ex. Balckgem" name="provider">
+              </div>
+              <div class="col-12">
+                  <label for="details" class="form-label">Description</label>
+                  <input type="text" class="form-control rounded-pill"  placeholder="Description" name="details">
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+              
+            
+              
+           
+          </form>
+          </div>
+         
+         
+      </div>
+  </div>
+</div>
+
+  
+<!-- Modal update Experience -->
+
+<div class="modal fade" id="updateQuallification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+      <div class="modal-content p-3">
+          <div class="modal-header">
+              <h4 class="modal-title fw-bold text-center" id="exampleModalLabel">Modify Experience</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form  action="/experience/update" class="row g-3 needs-validation" method="POST" id="experience-form"   novalidate>
+                 
+              <div class="col-12">
+                  <label for="experience" class="form-label" > What is your role?</label>
+                  <input type="text" class="form-control rounded-pill"  placeholder="Ex. Full-stack developer" name="title">
+              </div>
+              <div class="col-12">
+                  <label for="provider" class="form-label">What is the company?</label>
+                  <input type="text" class="form-control rounded-pill"  placeholder="Ex. Balckgem" name="provider">
+              </div>
+              <div class="col-12">
+                  <label for="details" class="form-label">Description</label>
+                  <input type="text" class="form-control rounded-pill"  placeholder="Description" name="details">
+              </div>
+              <input type="text" hidden class="updateexperienceId"  name="id" >
+              <button type="submit" class="btn btn-primary">Save</button>
+              
+            
+              
+           
+          </form>
+          </div>
+         
+         
+      </div>
+  </div>
+</div>
+
+
+
+    <!-- Modal delete experience -->
+   
+    <div class="modal fade" id="deleteexperience" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete experience</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           Are you sure you want to delete?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <form action="/experience/delete" method="POST" class="deleteexperience">
+              <input type="text" hidden class="deleteexperienceId"  name="id" >
+              <button type="submit" class="btn btn-primary">Yes</button>
+
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<%-include("_footer.ejs")  %> 
+
+<script>
+  document.querySelectorAll('.delteIcon').forEach((btn) => {
+  btn.addEventListener('click', () => {
+     const id = btn.getAttribute("data-id")
+    document.querySelector('.deleteexperienceId').value = id;
+  });
+});
+
+
+document.querySelectorAll('.updateIcon').forEach((btn) => {
+  btn.addEventListener('click', () => {
+
+     const id = btn.getAttribute("data-id")
+     document.querySelector('.updateexperienceId').value = id;
+
+
+    
+
+  });
+
+
+});
+
+
+</script>
+
+
+
+</body>
+</html>

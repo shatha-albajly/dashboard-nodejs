@@ -1,0 +1,156 @@
+<%-include("_header.ejs")  %> 
+<%-include("sidebar.ejs")  %> 
+
+        <div class="col-12 col-md-5  bg-light rounded mx-auto shadow ">
+     
+          <div class="row">
+          
+            <div class=" border-right">
+                <div class="p-3 pb-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3 ">
+                        <h4 class="text-right text-primary">Skills</h4>
+                        <a role="button" data-bs-toggle="modal" data-bs-target="#addSkill"><i class="bi bi-plus h2 text-primary"></i></a>
+                    </div>
+                    <div class="skills">
+        <% data.forEach(element => { %>
+            <% if (element.is_active) { %>
+                <span class="px-2 py-1 mx-1 mb-2 d-inline-flex  rounded-pill bg-primary text-white align-items-center justify-content-between">
+                    <p style="font-size: 1.2rem;" class="h5 mx-2 "> <%= element.skills %> </p>                   
+                     
+                    <a role="button" class="updateIcon h5" 
+                    data-id= <%= element.id %>
+                    data-skills= <%= element.skills %>
+                    
+                    
+                    onclick= <%= "add(element)" %>
+                    
+
+                    
+                    > <i  class="bi bi-pencil text-white   "data-bs-toggle="modal" data-bs-target="#updateSkills" style="cursor: pointer;font-size: .7rem;"></i></a>
+                  
+                    <a role="button" data-bs-toggle="modal"  class="delteIcon" data-bs-target="#deleteSkills" 
+                                       data-id= <%= element.id %>
+                                       > <i class="bi bi-x text-white mx-1  trash mb-2 " style="cursor: pointer;font-size: 1.2rem;"  
+                                        ></i></a>
+                                      
+                </span>
+            
+            <% } %>
+        
+        <% }) %>
+
+                      
+                   
+                    </div>
+                </div>
+            </div> 
+        </div>
+    
+          </div>
+          <div class="col-12 col-md-3"></div>
+
+        </div>
+      </div>
+      <!-- model add skills -->
+      <div class="modal fade" id="addSkill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h4 class="modal-title fw-bold text-center" id="exampleModalLabel">Add Skill</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/skills/add" class="row g-3 needs-validation" method="POST"    novalidate >
+                      <input type="text " class="form-control" name="skills">
+                      <button type="submit" class="btn btn-primary"             data-bs-dismiss="modal"
+                    >Save</button>
+                    </form>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal delete qualification -->
+   
+     <div class="modal fade" id="deleteSkills" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Skills</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+             Are you sure you want to delete?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <form action="/skills/delete" method="POST" class="deleteSkills">
+                <input type="text" hidden class="deleteSkillsId"  name="id" >
+                <button type="submit" class="btn btn-primary">Yes</button>
+  
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+<!-- Modal update Experience -->
+
+<div class="modal fade" id="updateSkills" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h4 class="modal-title fw-bold text-center" id="exampleModalLabel">Modify Skills</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form  action="/skills/update" class="row g-3 needs-validation" method="POST" id="skills-form"   novalidate>
+                   
+                <div class="col-12">
+                    <label for="skills" class="form-label" ></label>
+                    <input type="text" class="form-control rounded-pill update-skills"  placeholder="Ex.Python" name="skills">
+                </div>
+               
+                <input type="text" hidden class="updateSkillsId"  name="id" >
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+            </div>           
+        </div>
+    </div>
+  </div>
+
+
+    </section>
+ 
+
+    <%-include("_footer.ejs")  %> 
+
+
+
+    <script>
+      
+        document.querySelectorAll('.delteIcon').forEach((btn) => {
+        btn.addEventListener('click', () => {
+           const id = btn.getAttribute("data-id")
+           console.log(id)
+          document.querySelector('.deleteSkillsId').value = id;
+        });
+      });
+
+      
+document.querySelectorAll('.updateIcon').forEach((btn) => {
+  btn.addEventListener('click', () => {
+     const id = btn.getAttribute("data-id")
+     document.querySelector('.updateSkillsId').value = id;
+  });
+});
+
+    </script>
+
+  </body>
+</html>
